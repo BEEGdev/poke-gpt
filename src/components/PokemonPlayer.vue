@@ -1,6 +1,8 @@
 <script>
 export default {
   name: 'PokemonPlayer',
+  components:{
+  },
   props: {
     name: {
       type: String,
@@ -12,6 +14,7 @@ export default {
       required: true
     },
     message: {
+      default: "hola",
       type: String
     }
   },
@@ -25,15 +28,25 @@ export default {
   computed: {
     altImage() {
       return `Imagen del pokemon ${this.pokemonName}`
+    },
+    
+    listMessage(){
+      return [this.message]
     }
-  }
+  },
+  updated(){
+    const speech= new SpeechSynthesisUtterance(this.message)
+    speech.lang = "es"
+    speechSynthesis.speak(speech)
+}
 }
 </script>
 
 <template>
   <div class="pokemon">
     <div class="dialog">
-      <p>{{ message }}</p>
+    <!--<p>{{ message }}</p>-->
+    <VueWriter :array="listMessage" :iterations='10000' :start="50" />
     </div>
     <div class="avatar">
       <h3>{{ name }}</h3>

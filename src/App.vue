@@ -1,24 +1,27 @@
 <script>
 import PokemonPlayer from './components/PokemonPlayer.vue'
+import {endGameAlert} from './modules/SweetAlert.js'
 export default {
   name: 'App',
   components: {
-    PokemonPlayer
+    PokemonPlayer,
   },
   async mounted() {
     await this.pokeApiRequest()
+    
+
   },
   data() {
     return {
       player1: {
         name: 'Cargando',
         src: 'https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
-        message: ''
+        message: ' '
       },
       player2: {
         name: 'Cargando',
         src: 'https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
-        message: ''
+        message: ' '
       },
       isButtonDisabled: true,
       messageList: [
@@ -28,7 +31,10 @@ export default {
         'Gastly: No, por qué. ',
         'Pikachu: Porque pierden su poder cuando están mojados, ¡se vuelven Gashlympos! ',
         'Gastly: Jaja, Pikachu, eres un auténtico Pikachu-chiste.'
-      ]
+      ],
+
+      playerTurn : 0
+
     }
   },
   methods: {
@@ -54,7 +60,20 @@ export default {
       return pokemon
     },
     nextTurn() {
-      alert('Hola')
+      if(this.playerTurn===0){
+        this.player1.message= this.messageList.shift()
+      }
+
+      else if(this.playerTurn===1){
+        this.player2.message= this.messageList.shift()
+      }
+
+      this.playerTurn = (this.playerTurn + 1) % 2
+      
+      if(this.messageList.length===0){
+        this.isButtonDisabled=true;
+        endGameAlert();
+      }
     }
   }
 }
