@@ -12,12 +12,23 @@ export default {
     return {
       player1: {
         name: 'Cargando',
-        src: 'https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'
+        src: 'https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
+        message: ''
       },
       player2: {
         name: 'Cargando',
-        src: 'https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'
-      }
+        src: 'https://i.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
+        message: ''
+      },
+      isButtonDisabled: true,
+      messageList: [
+        'Gastly: ¿Qué hace un Pikachu en una biblioteca? Pikachu: No lo sé, ¿qué? ',
+        'Gastly: ¡Está buscando su cola perdida en los libros de cola! ',
+        'Pikachu: ¿Sabes por qué a los Gastly no les gusta bañarse? ',
+        'Gastly: No, por qué. ',
+        'Pikachu: Porque pierden su poder cuando están mojados, ¡se vuelven Gashlympos! ',
+        'Gastly: Jaja, Pikachu, eres un auténtico Pikachu-chiste.'
+      ]
     }
   },
   methods: {
@@ -30,6 +41,7 @@ export default {
       this.player2.name = player2.name
       this.player1.src = player1.src
       this.player2.src = player2.src
+      this.isButtonDisabled = false
     },
     async getPokemonInfo(id) {
       const URL = `https://pokeapi.co/api/v2/pokemon/${id}`
@@ -40,6 +52,9 @@ export default {
         src: data.sprites.other['official-artwork']['front_default']
       }
       return pokemon
+    },
+    nextTurn() {
+      alert('Hola')
     }
   }
 }
@@ -50,8 +65,7 @@ export default {
     <nav>
       <img src="img/pokemon-logo.png" alt="Pokemon" />
       <div class="button-group">
-        <button>Siguente turno</button>
-        <button>Pruebas</button>
+        <button @click="nextTurn" :disabled="isButtonDisabled">Siguente turno</button>
         <!-- TODO
         <button></button>
         <button></button>
@@ -59,8 +73,16 @@ export default {
       </div>
     </nav>
     <div class="battle">
-      <PokemonPlayer :name="player1.name" :src="player1.src"></PokemonPlayer>
-      <PokemonPlayer :name="player2.name" :src="player2.src"></PokemonPlayer>
+      <PokemonPlayer
+        :name="player1.name"
+        :src="player1.src"
+        :message="player1.message"
+      ></PokemonPlayer>
+      <PokemonPlayer
+        :name="player2.name"
+        :src="player2.src"
+        :message="player2.message"
+      ></PokemonPlayer>
     </div>
   </div>
 </template>
@@ -94,7 +116,13 @@ button {
   box-shadow: 0 5px 20px 3px rgba(0, 0, 0, 0.6);
 }
 
-button:hover {
+button[disabled] {
+  background-color: #999;
+  color: #555;
+  border-color: #fff;
+}
+
+button:not([disabled]):hover {
   position: relative;
   translate: 2px 2px;
   box-shadow: -2px -2px 10px 2px black inset;
@@ -106,5 +134,6 @@ button:hover {
   justify-content: center;
   align-items: center;
   gap: 32px;
+  margin-right: 2rem;
 }
 </style>

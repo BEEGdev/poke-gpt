@@ -10,6 +10,9 @@ export default {
     src: {
       type: String,
       required: true
+    },
+    message: {
+      type: String
     }
   },
   data() {
@@ -30,7 +33,7 @@ export default {
 <template>
   <div class="pokemon">
     <div class="dialog">
-      <p>{{ name }} está atacando a Pikachu</p>
+      <p>{{ message }}</p>
     </div>
     <div class="avatar">
       <h3>{{ name }}</h3>
