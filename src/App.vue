@@ -1,15 +1,13 @@
 <script>
 import PokemonPlayer from './components/PokemonPlayer.vue'
-import {endGameAlert} from './modules/SweetAlert.js'
+import { endGameAlert } from './modules/SweetAlert.js'
 export default {
   name: 'App',
   components: {
-    PokemonPlayer,
+    PokemonPlayer
   },
   async mounted() {
     await this.pokeApiRequest()
-    
-
   },
   data() {
     return {
@@ -24,17 +22,10 @@ export default {
         message: ' '
       },
       isButtonDisabled: true,
-      messageList: [
-        'Gastly: ¿Qué hace un Pikachu en una biblioteca? Pikachu: No lo sé, ¿qué? ',
-        'Gastly: ¡Está buscando su cola perdida en los libros de cola! ',
-        'Pikachu: ¿Sabes por qué a los Gastly no les gusta bañarse? ',
-        'Gastly: No, por qué. ',
-        'Pikachu: Porque pierden su poder cuando están mojados, ¡se vuelven Gashlympos! ',
-        'Gastly: Jaja, Pikachu, eres un auténtico Pikachu-chiste.'
-      ],
 
-      playerTurn : 0
+      messageList: [],
 
+      playerTurn: 0
     }
   },
   methods: {
@@ -48,6 +39,24 @@ export default {
       this.player1.src = player1.src
       this.player2.src = player2.src
       this.isButtonDisabled = false
+      this.messageList.push(`${player1.name}: se unió a la partida.`),
+        this.messageList.push(`${player2.name}: se unió a la partida.`),
+        this.messageList.push(
+          `${player1.name}: ¿Qué hace un Pikachu en una biblioteca? ${player2.name}: No lo sé, ¿qué?`
+        ),
+        this.messageList.push(
+          `${player1.name}: ¡Está buscando su cola perdida en los libros de cola!`
+        ),
+        this.messageList.push(
+          `${player2.name}: ¿Sabes por qué a los Gastly no les gusta bañarse? `
+        ),
+        this.messageList.push(`${player1.name}: No, ¿por qué?. `),
+        this.messageList.push(
+          `${player2.name}: Porque pierden su poder cuando están mojados, ¡se vuelven Gashlympos!`
+        ),
+        this.messageList.push(
+          `${player1.name}: Jaja, ${player2.name}, eres un auténtico ${player1.name}-chiste.'`
+        )
     },
     async getPokemonInfo(id) {
       const URL = `https://pokeapi.co/api/v2/pokemon/${id}`
@@ -60,19 +69,17 @@ export default {
       return pokemon
     },
     nextTurn() {
-      if(this.playerTurn===0){
-        this.player1.message= this.messageList.shift()
-      }
-
-      else if(this.playerTurn===1){
-        this.player2.message= this.messageList.shift()
+      if (this.playerTurn === 0) {
+        this.player1.message = this.messageList.shift()
+      } else if (this.playerTurn === 1) {
+        this.player2.message = this.messageList.shift()
       }
 
       this.playerTurn = (this.playerTurn + 1) % 2
-      
-      if(this.messageList.length===0){
-        this.isButtonDisabled=true;
-        endGameAlert();
+
+      if (this.messageList.length === 0) {
+        this.isButtonDisabled = true
+        endGameAlert()
       }
     }
   }
@@ -111,6 +118,7 @@ export default {
 
 body {
   margin: 0;
+  background-color: aqua;
 }
 nav {
   background: black;

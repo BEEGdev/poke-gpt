@@ -6,7 +6,7 @@ dotenv.config()
 const API_KEY = process.env.API_KEY
 const max_tokens = 300
 const player1 = 'Gastly'
-const player2 = 'Pikachu'
+const player2 = 'Pikahu'
 const prompt = ` Dame única y exclusivamente  el dialogo no te enrolles, de 2 pokemon llamados ${player1} y ${player2}. Imagina que estamos en un combate de chistes y cada uno de los pokemon tiene que decir una frase (80 caracteres máximo). Devuélveme el diálogo entre los dos pokemon, en formato de lista (sólo una lista de 6 ítems). Ve al grano, omite todo lo que no sea la lista (por supuesto, claro, etc...). Responde en menos de ${max_tokens} `
 const model = 'gpt-3.5-turbo'
 const API_URL = `https://api.openai.com/v1/chat/completions`

@@ -1,8 +1,7 @@
 <script>
 export default {
   name: 'PokemonPlayer',
-  components:{
-  },
+  components: {},
   props: {
     name: {
       type: String,
@@ -14,7 +13,7 @@ export default {
       required: true
     },
     message: {
-      default: "hola",
+      default: 'hola',
       type: String
     }
   },
@@ -29,24 +28,24 @@ export default {
     altImage() {
       return `Imagen del pokemon ${this.pokemonName}`
     },
-    
-    listMessage(){
+
+    listMessage() {
       return [this.message]
     }
   },
-  updated(){
-    const speech= new SpeechSynthesisUtterance(this.message)
-    speech.lang = "es"
+  updated() {
+    const speech = new SpeechSynthesisUtterance(this.message)
+    speech.lang = 'es'
     speechSynthesis.speak(speech)
-}
+  }
 }
 </script>
 
 <template>
   <div class="pokemon">
     <div class="dialog">
-    <!--<p>{{ message }}</p>-->
-    <VueWriter :array="listMessage" :iterations='10000' :start="50" />
+      <!--<p>{{ message }}</p>-->
+      <VueWriter :array="listMessage" :iterations="100" :start="50" />
     </div>
     <div class="avatar">
       <h3>{{ name }}</h3>
@@ -66,8 +65,10 @@ export default {
 .dialog {
   font-family: 'Press Start 2P', cursive;
   font-size: 1.5rem;
-  background: grey;
+  background: white;
   padding: 25px;
+  border: 10px double black;
+  border-radius: 10px;
 }
 
 h3 {
